@@ -6,11 +6,14 @@ import com.google.gson.annotations.SerializedName
 data class Country(
     @SerializedName("id")
     @Expose
-    var id: Int?,
+    var id: Int,
     @SerializedName("name")
     @Expose
-    var countryName: String?,
+    var countryName: String,
     @SerializedName("capital")
     @Expose
-    var capital: String?
+    var capital: String,
+    @SerializedName("flag_url")
+    @Expose
+    var flagUrl: String?
 )
