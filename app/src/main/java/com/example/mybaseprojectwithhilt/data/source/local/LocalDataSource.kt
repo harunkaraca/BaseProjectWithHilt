@@ -15,7 +15,7 @@ class LocalDataSource internal constructor(
 
     suspend fun getCountryList(): Result<List<Country>> = withContext(ioDispatcher) {
         return@withContext try {
-            val countries:List<Country> = countryDao.getCountryList().map { Country( it.id,it.countryName,it.capital) }
+            val countries:List<Country> = countryDao.getCountryList().map { Country( it.id,it.countryName,it.capital,it.flagUrl) }
             Result.Success(countries)
         } catch (e: Exception) {
             Result.Error(e)
@@ -31,7 +31,7 @@ class LocalDataSource internal constructor(
     }
 
     suspend fun saveCountry(country: Country) {
-        val countryT = CountryTable(country.countryName,country.capital,country.id!!)
+        val countryT = CountryTable(country.countryName,country.capital,country.flagUrl,country.id)
         countryDao.insertCountry(countryT)
     }
 }
