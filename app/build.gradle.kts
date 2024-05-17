@@ -19,7 +19,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures { buildConfig = true }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -48,6 +51,7 @@ android {
 }
 
 dependencies {
+
     val daggerHiltVersion="2.48"
     val coroutinesVersion="1.8.0"
     val roomVersion="2.6.1"
@@ -56,16 +60,20 @@ dependencies {
     val retrofitVersion="2.11.0"
     val retrofitLoggingInterceptorVersion="4.12.0"
     val timberVersion="5.0.1"
+    val glideVersion="4.16.0"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
 
     implementation("com.jakewharton.timber:timber:$timberVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
+
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
     // Architecture Components
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
