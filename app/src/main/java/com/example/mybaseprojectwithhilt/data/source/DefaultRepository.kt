@@ -19,9 +19,7 @@ class DefaultRepository(
         return withContext(ioDispatcher){
             val countryList=fetchCountriesFromRemote()
             (countryList as? Result.Success)?.let {
-                if (it.data.isEmpty()) {
-                    return@withContext Result.Success(it.data)
-                }
+                return@withContext Result.Success(it.data)
             }
             return@withContext Result.Error(Exception("Illegal state"))
         }
