@@ -8,20 +8,23 @@ import timber.log.Timber
 import java.lang.IllegalStateException
 import com.example.mybaseprojectwithhilt.data.source.Result
 import com.example.mybaseprojectwithhilt.data.source.local.LocalDataSource
+import com.example.mybaseprojectwithhilt.util.wrapEspressoIdlingResource
 import kotlinx.coroutines.withContext
 
 class DefaultRepository(
     private val remoteDataSource:RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO):BaseRepository {
 
-    suspend fun getCountryList(): Result<List<Country>> {
-        return withContext(ioDispatcher){
-            val countryList=fetchCountriesFromRemote()
-            (countryList as? Result.Success)?.let {
-                return@withContext Result.Success(it.data)
+    override suspend fun getCountryList(): Result<List<Country>> {
+        wrapEspressoIdlingResource {
+            return withContext(ioDispatcher){
+                val countryList=fetchCountriesFromRemote()
+                (countryList as? Result.Success)?.let {
+                    return@withContext Result.Success(it.data)
+                }
+                return@withContext Result.Error(Exception("Illegal state"))
             }
-            return@withContext Result.Error(Exception("Illegal state"))
         }
     }
     private suspend fun fetchCountriesFromRemote() : Result<List<Country>> {
