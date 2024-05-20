@@ -61,6 +61,7 @@ dependencies {
     val retrofitLoggingInterceptorVersion="4.12.0"
     val timberVersion="5.0.1"
     val glideVersion="4.16.0"
+    val espressoVersion="3.5.1"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -92,6 +93,12 @@ dependencies {
     // Hilt testing
     androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerHiltVersion")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$daggerHiltVersion")
+
+    //Test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    androidTestImplementation("androidx.test.espresso.idling:idling-concurrent:$espressoVersion")
+    implementation("androidx.test.espresso:espresso-idling-resource:$espressoVersion")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
