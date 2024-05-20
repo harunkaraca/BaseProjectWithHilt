@@ -7,13 +7,15 @@ import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 import java.lang.IllegalStateException
 import com.example.mybaseprojectwithhilt.data.source.Result
+import com.example.mybaseprojectwithhilt.data.source.local.BaseLocalDataSource
 import com.example.mybaseprojectwithhilt.data.source.local.LocalDataSource
+import com.example.mybaseprojectwithhilt.data.source.remote.BaseRemoteDataSource
 import com.example.mybaseprojectwithhilt.util.wrapEspressoIdlingResource
 import kotlinx.coroutines.withContext
 
 class DefaultRepository(
-    private val remoteDataSource:RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val remoteDataSource:BaseRemoteDataSource,
+    private val localDataSource: BaseLocalDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO):BaseRepository {
 
     override suspend fun getCountryList(): Result<List<Country>> {

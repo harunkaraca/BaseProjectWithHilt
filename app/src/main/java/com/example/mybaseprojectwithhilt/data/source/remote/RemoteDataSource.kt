@@ -6,11 +6,11 @@ import com.example.mybaseprojectwithhilt.data.source.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class RemoteDataSource internal constructor(private val apiService: ApiService,private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO)  {
+class RemoteDataSource internal constructor(private val apiService: ApiService,private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO):BaseRemoteDataSource  {
     companion object{
         var token=""
     }
-    suspend fun getCountryList(): Result<List<Country>> {
+    override suspend fun getCountryList(): Result<List<Country>> {
         return try {
             apiService.getCountries(token).let {response->
                 if(response.isSuccessful){

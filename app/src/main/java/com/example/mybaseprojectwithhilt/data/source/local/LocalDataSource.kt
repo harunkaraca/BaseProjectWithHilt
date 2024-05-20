@@ -10,10 +10,10 @@ import com.example.mybaseprojectwithhilt.data.source.local.entity.CountryTable
 class LocalDataSource internal constructor(
     private val countryDao: CountryDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
+):BaseLocalDataSource {
 
 
-    suspend fun getCountryList(): Result<List<Country>> = withContext(ioDispatcher) {
+    override suspend fun getCountryList(): Result<List<Country>> = withContext(ioDispatcher) {
         return@withContext try {
             val countries:List<Country> = countryDao.getCountryList().map { Country( it.id,it.countryName,it.capital,it.flagUrl) }
             Result.Success(countries)
@@ -22,15 +22,15 @@ class LocalDataSource internal constructor(
         }
     }
 
-    suspend fun deleteCountry(id: Int) {
+    override suspend fun deleteCountry(id: Int) {
         countryDao.deleteCountryById(id)
     }
 
-    suspend fun deleteAllCountries() {
+    override suspend fun deleteAllCountries() {
         countryDao.deleteAllCountry()
     }
 
-    suspend fun saveCountry(country: Country) {
+    override suspend fun saveCountry(country: Country) {
         val countryT = CountryTable(country.countryName,country.capital,country.flagUrl,country.id)
         countryDao.insertCountry(countryT)
     }
