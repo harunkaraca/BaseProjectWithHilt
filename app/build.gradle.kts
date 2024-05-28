@@ -19,6 +19,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    sourceSets {
+        val sharedTestDir = "src/sharedTest/java"
+        getByName("test") {
+            java.srcDir(sharedTestDir)
+        }
+        getByName("androidTest") {
+            java.srcDir(sharedTestDir)
+        }
+    }
     buildFeatures {
         buildConfig = true
         viewBinding = true
@@ -52,6 +61,7 @@ android {
 
 dependencies {
 
+    androidTestImplementation(project(":app"))
     val daggerHiltVersion="2.48"
     val coroutinesVersion="1.8.0"
     val roomVersion="2.6.1"
@@ -62,6 +72,7 @@ dependencies {
     val timberVersion="5.0.1"
     val glideVersion="4.16.0"
     val espressoVersion="3.5.1"
+    val truthVersion="1.4.2"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -99,6 +110,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
     androidTestImplementation("androidx.test.espresso.idling:idling-concurrent:$espressoVersion")
     implementation("androidx.test.espresso:espresso-idling-resource:$espressoVersion")
+    testImplementation("com.google.truth:truth:$truthVersion")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
