@@ -22,6 +22,21 @@ class LocalDataSource internal constructor(
         }
     }
 
+    override suspend fun getCountryById(id: Int): Result<Country> = withContext(ioDispatcher) {
+        try {
+            val countryTable=countryDao.getCountryById(id)
+            if(countryTable!=null){
+                val country:Country =  Country( countryTable.id,countryTable.countryName,countryTable.capital,countryTable.flagUrl)
+                return@withContext Result.Success(country)
+            }else{
+                return@withContext Result.Error(Exception("No country found"))
+            }
+
+        } catch (e: Exception) {
+            return@withContext Result.Error(e)
+        }
+    }
+
     override suspend fun deleteCountry(id: Int) {
         countryDao.deleteCountryById(id)
     }
