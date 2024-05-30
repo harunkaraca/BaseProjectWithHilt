@@ -12,6 +12,13 @@ class FakeLocalDataSource(var countries: MutableList<Country>? = mutableListOf()
         )
     }
 
+    override suspend fun getCountryById(id: Int): Result<Country> {
+        countries?.let { return Result.Success(ArrayList(it)[0]) }
+        return Result.Error(
+            Exception("Tasks not found")
+        )
+    }
+
     override suspend fun deleteCountry(id: Int) {
         countries?.removeIf{it.id==id}
     }
