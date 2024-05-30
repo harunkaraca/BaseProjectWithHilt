@@ -61,7 +61,8 @@ android {
 
 dependencies {
 
-    androidTestImplementation(project(":app"))
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.runner)
     val daggerHiltVersion="2.48"
     val coroutinesVersion="1.8.0"
     val roomVersion="2.6.1"
@@ -73,6 +74,7 @@ dependencies {
     val glideVersion="4.16.0"
     val espressoVersion="3.5.1"
     val truthVersion="1.4.2"
+    val archTestingVersion="2.2.0"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -107,7 +109,11 @@ dependencies {
 
     //Test
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    testImplementation("androidx.arch.core:core-testing:$archTestingVersion")
+    androidTestImplementation("androidx.arch.core:core-testing:$archTestingVersion")
     androidTestImplementation("androidx.test.espresso.idling:idling-concurrent:$espressoVersion")
     implementation("androidx.test.espresso:espresso-idling-resource:$espressoVersion")
     testImplementation("com.google.truth:truth:$truthVersion")
